@@ -77,13 +77,28 @@ Node* llfilter(Node* head, Comp pred);
 // implement the above function now.
 //*****************************************************************************
 
+// linked list filter
 template <typename Comp>
 Node* llfilter(Node* head, Comp pred)
 {
     //*********************************************
     // Provide your implementation below
     //*********************************************
+    // if head is null, return null
+    if (head == nullptr) {
+        return nullptr;
+    }
 
+    Node* next = llfilter(head->next, pred);
+    // If the predicate returns true for the current node's value, deallocate the current node and return the next node
+    if (pred(head->val)) {
+        // Node* temp = head->next;
+        delete head;
+        return next;
+    }
+    head->next = next;
+    // If the predicate returns false, keep the current node and return it
+    return head;
 
 }
 
